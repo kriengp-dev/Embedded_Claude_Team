@@ -172,3 +172,14 @@ Suggested action: <where to look manually — specific datasheet section or vend
 - **Flag errata** — if a known errata affects the finding, highlight it clearly
 - **Write code examples in C** — no C++, Python, or pseudo-code unless explicitly asked
 - **Keep code embedded-safe** — no dynamic allocation, use fixed-width types (`uint8_t`, `uint32_t`)
+- **Check saved research first** — before searching, scan the archive below for an existing result on the same MCU/topic. If a match exists, load that file and verify it is still current before searching again.
+
+---
+
+## Saved Research Archive
+
+Completed deep-dive results are saved in `output/` at the claude project root. Load the relevant file at the start of a session before re-searching.
+
+| Date | MCU / Platform | Topics Covered | File |
+|---|---|---|---|
+| 2026-06-23 | Renesas RA8T2 (Cortex-M85 600 MHz + M33 250 MHz), FSP, FreeRTOS | DSMIF+DTC+LPF, GPT32 PWM+POEG gate-OFF, DSMIF ISR-safe read, PWM ISR-safe duty update, SDRAM init (BSC), DPRAM+CS0 handshake, MRAM NVM, I2C, SDHI+FAT32, UART, ADC_B 16-bit, EtherCAT SSC, CAN FD, Hardware Semaphore (IPC Semaphore + r_ipc) | [output/ra8t2_driver_hal_research.md](../../../../output/ra8t2_driver_hal_research.md) |
