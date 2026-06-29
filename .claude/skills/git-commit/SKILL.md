@@ -91,6 +91,7 @@ subagent: <agent>
 | c-planner | `c-planner` |
 | deep-research-specialist | `research` |
 | document-writer | `document-writer` |
+| script-developer | `script-developer` |
 | Human / user | ask user for name → `author: <name>` (omit line if declined) |
 
 **Examples:**

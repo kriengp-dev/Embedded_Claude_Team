@@ -68,6 +68,34 @@ python .claude/skills/markdown-converter/convert.py any-to-md report.pdf -o outp
 
 ---
 
+## /script-generator
+
+**Use when:**
+- Writing any shell or PowerShell script (`.sh`, `.bash`, `.zsh`, `.ps1`)
+- Automating build, deploy, test, or maintenance tasks
+- Modifying an existing script
+- Generating cross-platform scripts (Bash + PowerShell pair)
+
+**What it does:**
+1. Confirms the target environment (Linux Bash, macOS Zsh, POSIX sh, PowerShell 5.1/7, Git Bash, or cross-platform)
+2. Confirms the output path
+3. Delegates to **script-developer** agent — never generates inline
+4. Enforces safety boilerplate (`set -euo pipefail` or `$ErrorActionPreference = 'Stop'`)
+5. Adds dependency-check block for all external tools used
+6. Sets executable bit for Bash scripts (`chmod +x`)
+7. Commits via `/git-commit`
+
+**Accepts argument:** free-text description of the script to generate (optional — agent will ask if not provided)
+
+**Examples:**
+```
+/script-generator deploy the staging Docker image via SSH
+/script-generator cross-platform clean.sh and clean.ps1 that remove build artifacts
+/script-generator PowerShell script to set up the dev environment on Windows
+```
+
+---
+
 ## Order before committing
 
 ```

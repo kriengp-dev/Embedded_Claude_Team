@@ -44,6 +44,7 @@ output/       — Generated/converted files (markdown-converter output)
 |---|---|
 | `deep-research-specialist` | External research — datasheets, standards, RTOS docs |
 | `document-writer` | Technical docs, architecture diagrams (Mermaid), SDD, ICD |
+| `script-developer` | Write Bash/sh/Zsh/PowerShell scripts for any target environment |
 
 ## Available Skills (Slash Commands)
 
@@ -63,6 +64,7 @@ output/       — Generated/converted files (markdown-converter output)
 - `/git-commit` — Branch-safe commit with enforced message format
 - `/markdown-converter` — Convert PDF/DOCX/URL ↔ Markdown ↔ HTML/DOCX
 - `/embedded-research-workflow` — Structured external research
+- `/script-generator` — Generate Bash/sh/Zsh/PowerShell scripts for any environment
 
 ## Mandatory Order Before Committing C Code
 

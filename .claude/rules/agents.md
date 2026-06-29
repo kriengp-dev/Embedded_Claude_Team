@@ -168,3 +168,29 @@ First c-reviewer, then c-developer (when neither depends on the other's output)
 **Output:** Summary in chat (quick/standard) or Markdown report saved to `output/` in this Claude project (deep dive) — never committed.
 
 **Can run in parallel with:** c-planner (research informs the plan), c-analyser (both are read-only)
+
+---
+
+## script-developer
+
+**Use when:**
+- Writing any new shell script (`.sh`, `.bash`, `.zsh`, `.ps1`)
+- Automating build, deploy, test, or maintenance tasks via script
+- Modifying an existing script to fix bugs or add features
+- Creating cross-platform scripts that run on both Unix and Windows
+- Any prompt that says "write a script", "automate X", "create a helper", or names a shell environment
+
+**Skip when:**
+- The task is a C implementation — use c-developer instead
+- The task is documentation only — use document-writer instead
+
+**Environment supported:** Linux Bash, macOS Zsh, POSIX sh, Windows PowerShell 5.1, Windows PowerShell 7+, Windows Git Bash, cross-platform (`.sh` + `.ps1` pair)
+
+**Mandatory safety practices enforced:**
+- `set -euo pipefail` on every Bash script
+- `Set-StrictMode -Version Latest` + `$ErrorActionPreference = 'Stop'` on every PowerShell script
+- Dependency check block for all external tools
+
+**Output:** Script file(s) saved to the path confirmed with the user; committed via `/git-commit`.
+
+**Can run in parallel with:** document-writer (script + documentation for same feature), deep-research-specialist (research while scripting)
