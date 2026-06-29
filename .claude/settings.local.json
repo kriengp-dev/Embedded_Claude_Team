@@ -26,7 +26,7 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Bash",
+        "matcher": "Bash(git commit*)",
         "hooks": [
           {
             "type": "command",
@@ -41,7 +41,7 @@
         ]
       },
       {
-        "matcher": "PowerShell",
+        "matcher": "PowerShell(git commit*)",
         "hooks": [
           {
             "type": "command",
