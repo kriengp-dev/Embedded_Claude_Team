@@ -119,6 +119,38 @@ First c-reviewer, then c-developer (when neither depends on the other's output)
 
 ---
 
+## c-refactor
+
+**Use when:**
+- Codebase is stable and tests pass, but code quality needs improvement
+- Dead code, duplicate logic, or over-complex functions need cleanup
+- A module needs restructuring without changing observable behaviour
+
+**Do not use when:**
+- A bug needs to be fixed — use c-developer instead
+- The build is broken — use c-build-resolver first
+
+**Distinction from c-reviewer:** c-reviewer identifies what to improve and flags issues; c-refactor applies the structural changes. Both can run in the same session: reviewer identifies → refactor applies.
+
+**Called after:** c-reviewer Section 2 findings, or directly when the user asks to clean up stable code.
+
+---
+
+## document-writer
+
+**Use when:**
+- Creating or updating technical documents (SDD, ICD, architecture, memory maps, protocol specs)
+- Producing Mermaid diagrams (state machines, sequence diagrams, data flow)
+- Writing general project documentation
+
+**Output:** Markdown file saved to `doc/` of the target repo, or `output/` in the Claude project.
+
+**Never modifies source code** — documentation only.
+
+**Can run in parallel with:** c-analyser (both are read-only), c-planner (document while planning)
+
+---
+
 ## deep-research-specialist
 
 **Use when:**
