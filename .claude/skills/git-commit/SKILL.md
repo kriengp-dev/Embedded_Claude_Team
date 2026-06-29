@@ -89,12 +89,6 @@ subagent: <agent>
 | c-build-resolver | `c-build-resolver` |
 | c-analyser | `c-analyser` |
 | c-planner | `c-planner` |
-| dotnet-backend-developer | `dotnet-backend-developer` |
-| dotnet-frontend-developer | `dotnet-frontend-developer` |
-| dotnet-reviewer | `dotnet-reviewer` |
-| dotnet-planner | `dotnet-planner` |
-| dotnet-analyzer | `dotnet-analyzer` |
-| dotnet-build-resolver | `dotnet-build-resolver` |
 | deep-research-specialist | `research` |
 | document-writer | `document-writer` |
 | Human / user | ask user for name → `author: <name>` (omit line if declined) |
