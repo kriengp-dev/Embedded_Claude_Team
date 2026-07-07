@@ -36,25 +36,13 @@ If the prompt is clear enough, infer and proceed — do not ask for information 
 
 ## Step 1 — Read Source Before Writing
 
-For any code-derived document:
+For any code-derived document, use the **Glob** and **Grep** tools (never `grep`/shell globbing via Bash — avoids permission prompts from unnecessary shell invocation):
 
-```bash
-# Find relevant source files
-glob <TARGET_REPO>/src/**/*.c
-glob <TARGET_REPO>/include/**/*.h
-
-# Extract public API from headers
-grep -rn "^[a-zA-Z_].*(" <TARGET_REPO>/include/
-
-# Extract typedefs, structs, enums
-grep -rn "^typedef\|^struct\|^enum" <TARGET_REPO>/include/
-
-# Extract #defines and constants
-grep -rn "^#define" <TARGET_REPO>/include/
-
-# Extract ISR handlers
-grep -rn "_IRQHandler\|_Handler" <TARGET_REPO>/src/
-```
+- Find relevant source files: Glob `<TARGET_REPO>/src/**/*.c`, Glob `<TARGET_REPO>/include/**/*.h`
+- Extract public API from headers: Grep pattern `^[a-zA-Z_].*\(`, path `<TARGET_REPO>/include/`
+- Extract typedefs, structs, enums: Grep pattern `^typedef|^struct|^enum`, path `<TARGET_REPO>/include/`
+- Extract #defines and constants: Grep pattern `^#define`, path `<TARGET_REPO>/include/`
+- Extract ISR handlers: Grep pattern `_IRQHandler|_Handler`, path `<TARGET_REPO>/src/`
 
 Never invent function signatures, register names, or bit masks. Read the actual headers.
 

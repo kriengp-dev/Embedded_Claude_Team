@@ -103,24 +103,16 @@ cppcheck --enable=all --suppress=missingIncludeSystem --std=c11 <user_provided_p
 ### Detection Commands
 
 ```bash
-# Unused functions, variables, unreachable code
+# Unused functions, variables, unreachable code (single command, safe via Bash)
 cppcheck --enable=unusedFunction,style,information --suppress=missingIncludeSystem --std=c11 <path>
-
-# All function definitions
-grep -rn "^[a-zA-Z_][a-zA-Z0-9_]* \+[a-zA-Z_][a-zA-Z0-9_]*(" --include="*.c" <path>
-
-# All function declarations in headers
-grep -rn "^[a-zA-Z_][a-zA-Z0-9_]* \+[a-zA-Z_][a-zA-Z0-9_]*(.*);$" --include="*.h" <path>
-
-# Macros defined but never used
-grep -rn "^#define" --include="*.h" <path>
-
-# Typedefs
-grep -rn "^typedef" --include="*.h" <path>
-
-# Include directives
-grep -rn "^#include" --include="*.c" --include="*.h" <path>
 ```
+
+Everything below uses the **Grep tool** (never `grep` via Bash — avoids permission prompts from unnecessary shell invocation):
+- All function definitions: pattern `^[a-zA-Z_][a-zA-Z0-9_]* +[a-zA-Z_][a-zA-Z0-9_]*\(`, glob `*.c`, path `<path>`
+- All function declarations in headers: pattern `^[a-zA-Z_][a-zA-Z0-9_]* +[a-zA-Z_][a-zA-Z0-9_]*\(.*\);$`, glob `*.h`, path `<path>`
+- Macros defined but never used: pattern `^#define`, glob `*.h`, path `<path>`
+- Typedefs: pattern `^typedef`, glob `*.h`, path `<path>`
+- Include directives: pattern `^#include`, glob `*.c,*.h`, path `<path>`
 
 ### Cleanup Workflow
 
