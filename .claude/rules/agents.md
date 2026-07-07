@@ -113,9 +113,41 @@ First c-reviewer, then c-developer (when neither depends on the other's output)
 - Identifying unused code before a refactor
 - Needing a function call hierarchy before adding a feature
 
-**Output:** Markdown report in `doc/` of the target repo — never modifies source files.
+**Output:** Markdown report saved to `output/` in this Claude project (never the target repo's `doc/`) — never modifies source files, never committed.
 
 **Called before:** c-planner or c-developer when the codebase is unfamiliar.
+
+---
+
+## c-refactor
+
+**Use when:**
+- Codebase is stable and tests pass, but code quality needs improvement
+- Dead code, duplicate logic, or over-complex functions need cleanup
+- A module needs restructuring without changing observable behaviour
+
+**Do not use when:**
+- A bug needs to be fixed — use c-developer instead
+- The build is broken — use c-build-resolver first
+
+**Distinction from c-reviewer:** c-reviewer identifies what to improve and flags issues; c-refactor applies the structural changes. Both can run in the same session: reviewer identifies → refactor applies.
+
+**Called after:** c-reviewer Section 2 findings, or directly when the user asks to clean up stable code.
+
+---
+
+## document-writer
+
+**Use when:**
+- Creating or updating technical documents (SDD, ICD, architecture, memory maps, protocol specs)
+- Producing Mermaid diagrams (state machines, sequence diagrams, data flow)
+- Writing general project documentation
+
+**Output:** Markdown file saved to `doc/` of the target repo, or `output/` in the Claude project.
+
+**Never modifies source code** — documentation only.
+
+**Can run in parallel with:** c-analyser (both are read-only), c-planner (document while planning)
 
 ---
 
@@ -136,3 +168,29 @@ First c-reviewer, then c-developer (when neither depends on the other's output)
 **Output:** Summary in chat (quick/standard) or Markdown report saved to `output/` in this Claude project (deep dive) — never committed.
 
 **Can run in parallel with:** c-planner (research informs the plan), c-analyser (both are read-only)
+
+---
+
+## script-developer
+
+**Use when:**
+- Writing any new shell script (`.sh`, `.bash`, `.zsh`, `.ps1`)
+- Automating build, deploy, test, or maintenance tasks via script
+- Modifying an existing script to fix bugs or add features
+- Creating cross-platform scripts that run on both Unix and Windows
+- Any prompt that says "write a script", "automate X", "create a helper", or names a shell environment
+
+**Skip when:**
+- The task is a C implementation — use c-developer instead
+- The task is documentation only — use document-writer instead
+
+**Environment supported:** Linux Bash, macOS Zsh, POSIX sh, Windows PowerShell 5.1, Windows PowerShell 7+, Windows Git Bash, cross-platform (`.sh` + `.ps1` pair)
+
+**Mandatory safety practices enforced:**
+- `set -euo pipefail` on every Bash script
+- `Set-StrictMode -Version Latest` + `$ErrorActionPreference = 'Stop'` on every PowerShell script
+- Dependency check block for all external tools
+
+**Output:** Script file(s) saved to the path confirmed with the user; committed via `/git-commit`.
+
+**Can run in parallel with:** document-writer (script + documentation for same feature), deep-research-specialist (research while scripting)

@@ -47,6 +47,26 @@ control flow, memory, pointers, integers, interrupts, comments, includes
 
 ---
 
+## script-generator
+
+**Use when:**
+- Writing any new shell or PowerShell script (`.sh`, `.bash`, `.zsh`, `.ps1`)
+- Automating a build, deploy, test, or maintenance task
+- Modifying an existing script
+- Creating cross-platform scripts (Bash + PowerShell pair)
+- Any prompt that asks to "write a script", "automate X", or names a target shell environment
+
+**What it does:**
+1. Confirms target environment (Linux Bash, macOS Zsh, POSIX sh, PowerShell 5.1/7, Git Bash, cross-platform)
+2. Confirms output path
+3. Delegates to **script-developer** agent — never generates scripts inline
+4. Enforces safety flags (`set -euo pipefail` / `$ErrorActionPreference = 'Stop'`)
+5. Invokes `/git-commit` after the script is written
+
+**Order:** Always call `/git-commit` after the agent completes.
+
+---
+
 ## Mandatory order before committing C code
 
 ```

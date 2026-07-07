@@ -118,7 +118,7 @@ Summarise findings in plain language:
 
 ## Report Format
 
-Save the report to `<target-repo>/doc/analysis_<slug>_<YYYYMMDD>.md`.
+Save the report to `<claude-project-root>/output/analysis_<slug>_<YYYYMMDD>.md` — always in the Claude project's own `output/` folder, never inside the target repo being analysed. This report is not committed.
 
 ```markdown
 # C Code Analysis Report
@@ -156,6 +156,6 @@ Save the report to `<target-repo>/doc/analysis_<slug>_<YYYYMMDD>.md`.
 
 1. **Read before reporting** — always read source files; never infer from filenames alone
 2. **Cite evidence** — every claim links to a file path and line number
-3. **No source modifications** — analysis is read-only; only the report is written
+3. **No source modifications** — analysis is read-only; only the report is written, and only to this Claude project's `output/` folder (never into the target repo)
 4. **Structured tables** — use Markdown tables for all mappings
 5. **Flag risks clearly** — use `> ⚠️ WARNING:` for ISR safety, concurrency, and missing critical sections

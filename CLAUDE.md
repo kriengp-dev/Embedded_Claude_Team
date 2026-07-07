@@ -6,14 +6,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 > All rules in `.claude/rules/` are mandatory and must be followed exactly as written in every session, without exception. They override any default Claude behavior. Do not skip, abbreviate, or reorder any step defined in agents.md, skills.md, commands.md, or performance.md.
 
 > **IMPORTANT — Invoke subagents proactively.**
-> Do not wait for the user to name an agent or skill. When the task matches a specialized agent (c-planner, c-developer, c-reviewer, dotnet-planner, etc.), invoke it immediately without asking for permission. If the workflow requires multiple agents, launch them in the correct order (or in parallel where independent) on your own initiative.
+> Do not wait for the user to name an agent or skill. When the task matches a specialized agent (c-planner, c-developer, c-reviewer, etc.), invoke it immediately without asking for permission. If the workflow requires multiple agents, launch them in the correct order (or in parallel where independent) on your own initiative.
 
 > **IMPORTANT — Never ask permission to use agents.**
-> Invoking any subagent (via the Agent tool) requires no user confirmation. Execute immediately. Do not say "I will use X agent" and wait — just call it. This applies to all agents: c-planner, c-developer, c-reviewer, c-build-resolver, dotnet-*, deep-research-specialist, document-writer, and all others.
+> Invoking any subagent (via the Agent tool) requires no user confirmation. Execute immediately. Do not say "I will use X agent" and wait — just call it. This applies to all agents: c-planner, c-developer, c-reviewer, c-build-resolver, deep-research-specialist, document-writer, and all others.
 
 ## Project Overview
 
-This repository is a **Claude Code team configuration** — a shared workspace that packages specialized agents, skills, rules, and hooks for embedded C and .NET software development workflows.
+This repository is a **Claude Code team configuration** — a shared workspace that packages specialized agents, skills, rules, and hooks for embedded C software development workflows.
 
 ## Repository Structure
 
@@ -39,21 +39,12 @@ output/       — Generated/converted files (markdown-converter output)
 | `c-reviewer` | Review for memory safety, concurrency, MISRA; remove dead code |
 | `c-build-resolver` | Fix compilation, linker, and toolchain errors |
 
-### .NET
-| Agent | Purpose |
-|---|---|
-| `dotnet-analyzer` | Map project structure, NuGet deps, EF Core models, API surface |
-| `dotnet-planner` | Produce planning doc (API design, EF schema, DI registration) |
-| `dotnet-backend-developer` | ASP.NET Core Web API, MediatR, EF Core, repositories |
-| `dotnet-frontend-developer` | Blazor Server/WASM, Razor Pages, MVC views |
-| `dotnet-reviewer` | Review for async correctness, SOLID, EF anti-patterns, security |
-| `dotnet-build-resolver` | Fix MSBuild, NuGet restore, EF migration errors |
-
 ### General
 | Agent | Purpose |
 |---|---|
 | `deep-research-specialist` | External research — datasheets, standards, RTOS docs |
 | `document-writer` | Technical docs, architecture diagrams (Mermaid), SDD, ICD |
+| `script-developer` | Write Bash/sh/Zsh/PowerShell scripts for any target environment |
 
 ## Available Skills (Slash Commands)
 
@@ -69,19 +60,11 @@ output/       — Generated/converted files (markdown-converter output)
 - `/c-coding-standard` — Enforce C coding standards
 - `/c-doxygen-standard` — Add/verify Doxygen comments
 
-### .NET Workflows
-- `/dotnet-development-workflow` — Full flow: plan → code → review
-- `/dotnet-plan` — Plan before implementation
-- `/dotnet-coding` — Implement (frontend + backend in parallel)
-- `/dotnet-review` — Code review
-- `/dotnet-refactor` — Dead code and SOLID cleanup
-- `/dotnet-build-resolve` — Fix build errors
-- `/dotnet-analyze` — Analyse unfamiliar solution
-
 ### General
 - `/git-commit` — Branch-safe commit with enforced message format
 - `/markdown-converter` — Convert PDF/DOCX/URL ↔ Markdown ↔ HTML/DOCX
 - `/embedded-research-workflow` — Structured external research
+- `/script-generator` — Generate Bash/sh/Zsh/PowerShell scripts for any environment
 
 ## Mandatory Order Before Committing C Code
 
@@ -101,7 +84,7 @@ Two hooks run on every `Bash` and `PowerShell` tool call:
 | Model | Use for |
 |---|---|
 | Haiku 4.5 | Lightweight agents, formatting, worker pipelines |
-| **Sonnet 4.6** (default) | Main development, orchestration, C/NET implementation |
+| **Sonnet 4.6** (default) | Main development, orchestration, embedded C implementation |
 | Opus 4.7 | Complex architecture, concurrency analysis, deep reasoning |
 
 ## Rules Reference
@@ -124,6 +107,6 @@ Detailed behavioral rules are in `.claude/rules/`:
 | Parallel agents | Launch independent agents simultaneously; only serialize when output feeds input |
 | C commit gate | `c-coding-standard` → `c-doxygen-standard` → `git-commit` — no exceptions |
 | No main commits | Never commit directly to `main`/`master` — always use a feature branch |
-| Reviewer always | `c-reviewer` or `dotnet-reviewer` must run after every code change — no exceptions |
-| Planner first | Use `c-planner` or `dotnet-planner` before implementing any multi-file change |
+| Reviewer always | `c-reviewer` must run after every C code change — no exceptions |
+| Planner first | Use `c-planner` before implementing any multi-file change |
 | Reference repos — ask first | Paths marked "อ้างอิง" (reference) must not be edited without explicit user permission. Ask before touching them; if approved, delegate to the relevant subagent. |

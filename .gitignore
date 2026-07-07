@@ -58,6 +58,9 @@ dkms.conf
 .claude/activity.log
 log/
 
+# Machine-specific Claude settings (hook paths are machine-local)
+.claude/settings.local.json
+
 doc/
 
 # Markdown-converter cloned tools (re-cloned by setup.py)

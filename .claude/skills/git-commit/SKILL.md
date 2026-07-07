@@ -24,7 +24,7 @@ git -C "<path-of-changed-files>" rev-parse --show-toplevel
 - Use the printed path for all subsequent git commands — not `pwd`, not the Claude project root
 - If the command returns an error → STOP and ask the user which repo to commit to
 - **Never run `git init`** unless the user explicitly requests it in the current message
-- The Claude project repo (`software_claude_team`) is NOT the target — always find the project's own repo
+- The Claude project repo is NOT the target — always find the project's own repo
 
 ---
 
@@ -89,14 +89,9 @@ subagent: <agent>
 | c-build-resolver | `c-build-resolver` |
 | c-analyser | `c-analyser` |
 | c-planner | `c-planner` |
-| dotnet-backend-developer | `dotnet-backend-developer` |
-| dotnet-frontend-developer | `dotnet-frontend-developer` |
-| dotnet-reviewer | `dotnet-reviewer` |
-| dotnet-planner | `dotnet-planner` |
-| dotnet-analyzer | `dotnet-analyzer` |
-| dotnet-build-resolver | `dotnet-build-resolver` |
 | deep-research-specialist | `research` |
 | document-writer | `document-writer` |
+| script-developer | `script-developer` |
 | Human / user | ask user for name → `author: <name>` (omit line if declined) |
 
 **Examples:**

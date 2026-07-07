@@ -26,10 +26,12 @@ Run these in order using the project path provided by the user:
 cppcheck --enable=all --suppress=missingIncludeSystem --std=c11 <user_provided_path>
 
 # Build command — determined by the project path the user provides
-# - Makefile present    → make -C <project_path> 2>&1 | head -100
-# - CMakeLists.txt      → cmake --build <build_path> 2>&1 | head -100
+# - Makefile present    → make -C <project_path>
+# - CMakeLists.txt      → cmake --build <build_path>
 # - .projectSpec / CCS  → use CCS headless build CLI if available
 ```
+
+Run each build command as a single, unchained command (no `| head` piping) — the Bash tool already truncates long output on its own, and piping adds a shell operator that triggers an avoidable permission prompt.
 
 ## Resolution Workflow
 

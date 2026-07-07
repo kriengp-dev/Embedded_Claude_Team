@@ -179,8 +179,10 @@ Separate hardware-dependent code from logic so tests run on host.
 # Makefile
 make -C tests/ test
 
-# CMake
-cmake --build build/ && ctest --test-dir build/
+# CMake — run as two separate commands, not chained with &&
+# (chained shell operators trigger an avoidable permission prompt)
+cmake --build build/
+ctest --test-dir build/
 ```
 
 ---
