@@ -113,7 +113,7 @@ First c-reviewer, then c-developer (when neither depends on the other's output)
 - Identifying unused code before a refactor
 - Needing a function call hierarchy before adding a feature
 
-**Output:** Markdown report in `doc/` of the target repo — never modifies source files.
+**Output:** Markdown report saved to `output/` in this Claude project (never the target repo's `doc/`) — never modifies source files, never committed.
 
 **Called before:** c-planner or c-developer when the codebase is unfamiliar.
 
